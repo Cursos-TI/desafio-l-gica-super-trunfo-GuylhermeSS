@@ -55,6 +55,7 @@ void comparacao(struct carta *val1, struct carta *val2) {
     int opcao;
     
     do {
+        printf("\n\nComparação das Cartas\n\n");
         printf("Escolha uma opção a seguir: \n\n");
         printf("1 - Exibir Paises\n");
         printf("2 - Comparar População\n");
@@ -62,7 +63,8 @@ void comparacao(struct carta *val1, struct carta *val2) {
         printf("4 - Comparar PIB\n");
         printf("5 - Comparar Pontos Turísticos\n");
         printf("6 - Comparar Densidade Populacional\n");
-        printf("7 - Vencedor do jogo\n\n");
+        printf("7 - Disputa de atributos\n");
+        printf("8 - Vencedor do jogo Completo\n\n");
         printf("Escolha uma opção (digite o numero da opção correspondente): ");
         scanf("%d", &opcao);
 
@@ -122,6 +124,118 @@ void comparacao(struct carta *val1, struct carta *val2) {
             break;
 
         case 7:
+            int resultado1, resultado2, atributo1, atributo2;
+
+            do {
+                printf("\nDisputa de atributos:\n\n");
+                printf("Escolha o primerio atributo para comparar:\n");
+                printf("1 - População\n");
+                printf("2 - Área\n");
+                printf("3 - PIB\n");
+                printf("4 - Pontos Turísticos\n");
+                printf("5 - Densidade Populacional\n");
+                printf("6 - PIB Per Capita\n");
+                printf("7 - Super Poder\n\n");
+                printf("Escolha uma opção (digite o numero da opção correspondente): ");
+                scanf("%d", &atributo1);
+
+                switch (atributo1) {
+                case 1:
+                    resultado1 = val1->populacao > val2->populacao ? 1 : 0;
+                    break;
+
+                case 2:
+                    resultado1 = val1->area > val2->area ? 1 : 0;
+                    break;
+
+                case 3:
+                    resultado1 = val1->pib > val2->pib ? 1 : 0;
+                    break;
+
+                case 4:
+                    resultado1 = val1->numPontosTuristicos > val2->numPontosTuristicos ? 1 : 0;
+                    break;
+
+                case 5:
+                    resultado1 = val1->densidadePopulacional < val2->densidadePopulacional ? 1 : 0;
+                    break;
+
+                case 6:
+                    resultado1 = val1->pibPerCapita > val2->pibPerCapita ? 1 : 0;
+                    break;
+
+                case 7:
+                    resultado1 = val1->superPoder > val2->superPoder ? 1 : 0;
+                    break;
+
+                default:
+                    printf("\nOpção inválida. Tente novamente.\n");
+                    break;
+                }
+            } while (atributo1 < 1 || atributo1 > 7);
+
+            do {
+                do{
+                    printf("\nEscolha o segundo atributo para comparar:\n");
+                    printf("1 - População\n");
+                    printf("2 - Área\n");
+                    printf("3 - PIB\n");
+                    printf("4 - Pontos Turísticos\n");
+                    printf("5 - Densidade Populacional\n");
+                    printf("6 - PIB Per Capita\n");
+                    printf("7 - Super Poder\n\n");
+                    printf("Escolha uma opção (digite o numero da opção correspondente): ");
+                    scanf("%d", &atributo2);
+
+                    atributo1 == atributo2 ? printf("\nAtributos iguais, escolha outros atributos.\n") : 0;
+                } while (atributo1 == atributo2);
+
+                switch (atributo2) {
+                case 1:
+                    resultado2 = val1->populacao > val2->populacao ? 1 : 0;
+                    break;
+
+                case 2:
+                    resultado2 = val1->area > val2->area ? 1 : 0;
+                    break;
+
+                case 3:
+                    resultado2 = val1->pib > val2->pib ? 1 : 0;
+                    break;
+
+                case 4:
+                    resultado2 = val1->numPontosTuristicos > val2->numPontosTuristicos ? 1 : 0;
+                    break;
+
+                case 5:
+                    resultado2 = val1->densidadePopulacional < val2->densidadePopulacional ? 1 : 0;
+                    break;
+
+                case 6:
+                    resultado2 = val1->pibPerCapita > val2->pibPerCapita ? 1 : 0;
+                    break;
+
+                case 7:
+                    resultado2 = val1->superPoder > val2->superPoder ? 1 : 0;
+                    break;
+
+                default:
+                    printf("\nOpção inválida. Tente novamente.\n");
+                    break;
+                }
+            } while (atributo2 < 1 || atributo2 > 7);
+
+            printf("\n\nO Vencedor dessa disputa é...\n\n");
+            if (resultado1 && resultado2) {
+                printf("Resultado: Carta 1 (%s) - Venceu a disputa\n", val1->cidade);
+            } else if (!resultado1 && !resultado2) {
+                printf("Resultado: Carta 2 (%s) - Venceu a disputa\n", val2->cidade);
+            } else {
+                printf("Resultado: Empate\n");
+            }
+            break;
+
+        case 8:
             printf("\nO vencedor do jogo é...\n\n");
 
             if (val1->superPoder > val2->superPoder) {
@@ -136,7 +250,7 @@ void comparacao(struct carta *val1, struct carta *val2) {
         default:
             printf("\nOpção inválida. Tente novamente.\n\n");
         }
-    } while (opcao != 7 || opcao > 7 || opcao < 1);
+    } while (opcao != 8 || opcao > 8 || opcao < 1);
 
     /*if (val1->pibPerCapita > val2->pibPerCapita) {
         printf("PIB Per Capita: Carta 1 (%s) Venceu - %.2f\n", val1->cidade, val1->pibPerCapita);
@@ -200,10 +314,11 @@ int main() {
                 } 
             } while (opcao != 0 && opcao != 1);
 
-            printf("\n\nComparação das Cartas\n\n");
             comparacao(&cartaUm, &cartaDois);
+
             printf("\nDeseja continuar jogando? (1 - Sim, 0 - Não): ");
             scanf("%d", &opcao);
+
             if (opcao == 1) {
                 printf("\nReiniciando o jogo...\n");
                 main();
