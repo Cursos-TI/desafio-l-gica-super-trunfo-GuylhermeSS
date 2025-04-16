@@ -28,7 +28,7 @@ void entrada(struct carta *val) {
     printf("Escolha uma cidade: ");
     scanf("%s", val->cidade);
     printf("Digite a quantidade de populacao: ");
-    scanf("%d", &val->populacao);
+    scanf("%lu", &val->populacao);
     printf("Digite a area em KM (somente o numero): ");
     scanf("%f", &val->area);
     printf("Digite o pib: ");
@@ -42,20 +42,20 @@ void saida(struct carta *val) {
     printf("Estado: %s\n", val->estado);
     printf("Codigo da Carta: %s%s\n", val->estado, val->codigoCarta);
     printf("Cidade: %s\n", val->cidade);
-    printf("Populacao: %d\n", val->populacao);
+    printf("Populacao: %lu\n", val->populacao);
     printf("Area: %.2f KM²\n", val->area);
     printf("PIB: %.2f bilhões de reais\n", val->pib);
     printf("Pontos Turisticos: %d\n", val->numPontosTuristicos);
     printf("Densidade Populacional: %.2f hab/km²\n", val->densidadePopulacional);
     printf("PIB Per Capita: %.2f reais\n", val->pibPerCapita);
-    printf("Super Poder: %.2f", val->superPoder);
+    printf("Super Poder: %.2f\n", val->superPoder);
 }
 
 void comparacao(struct carta *val1, struct carta *val2) {
-    int opcao;
+    int opcao, resultado1, resultado2, atributo1, atributo2;;
     
     do {
-        printf("\n\nComparação das Cartas\n\n");
+        printf("\nComparação das Cartas\n\n");
         printf("Escolha uma opção a seguir: \n\n");
         printf("1 - Exibir Paises\n");
         printf("2 - Comparar População\n");
@@ -70,7 +70,7 @@ void comparacao(struct carta *val1, struct carta *val2) {
 
         switch (opcao) {
         case 1:
-            printf("\nPaises: Carta 1 - %s e Carta 2 - %s\n\n", val1->cidade, val2->cidade);
+            printf("\nPaises: Carta 1 - %s e Carta 2 - %s\n", val1->cidade, val2->cidade);
             break;
 
         case 2:
@@ -124,8 +124,6 @@ void comparacao(struct carta *val1, struct carta *val2) {
             break;
 
         case 7:
-            int resultado1, resultado2, atributo1, atributo2;
-
             do {
                 printf("\nDisputa de atributos:\n\n");
                 printf("Escolha o primerio atributo para comparar:\n");
@@ -225,7 +223,7 @@ void comparacao(struct carta *val1, struct carta *val2) {
                 }
             } while (atributo2 < 1 || atributo2 > 7);
 
-            printf("\n\nO Vencedor dessa disputa é...\n\n");
+            printf("\nO Vencedor dessa disputa é...\n\n");
             if (resultado1 && resultado2) {
                 printf("Resultado: Carta 1 (%s) - Venceu a disputa\n", val1->cidade);
             } else if (!resultado1 && !resultado2) {
@@ -239,9 +237,9 @@ void comparacao(struct carta *val1, struct carta *val2) {
             printf("\nO vencedor do jogo é...\n\n");
 
             if (val1->superPoder > val2->superPoder) {
-                printf("Resultado: Carta 1 (%s) - Venceu o jogo\n", val1->cidade, val1->superPoder);
+                printf("Resultado: Carta 1 (%s) - Venceu o jogo\n", val1->cidade);
             } else if (val1->superPoder < val2->superPoder) {
-                printf("Resultado: Carta 2 (%s) - Venceu o jogo\n", val2->cidade, val2->superPoder);
+                printf("Resultado: Carta 2 (%s) - Venceu o jogo\n", val2->cidade);
             } else {
                 printf("Resultado: Empate (%.2f)\n", val1->superPoder);
             }
@@ -251,22 +249,6 @@ void comparacao(struct carta *val1, struct carta *val2) {
             printf("\nOpção inválida. Tente novamente.\n\n");
         }
     } while (opcao != 8 || opcao > 8 || opcao < 1);
-
-    /*if (val1->pibPerCapita > val2->pibPerCapita) {
-        printf("PIB Per Capita: Carta 1 (%s) Venceu - %.2f\n", val1->cidade, val1->pibPerCapita);
-    } else if (val1->pibPerCapita < val2->pibPerCapita) {
-        printf("PIB Per Capita: Carta 2 (%s) Venceu - %.2f\n", val2->cidade, val2->pibPerCapita);
-    } else {
-        printf("PIB Per Capita: Empate (%.2f)\n", val1->pibPerCapita);
-    }
-
-    if (val1->superPoder > val2->superPoder) {
-        printf("Super Poder: Carta 1 (%s) Venceu - %.2f\n", val1->cidade, val1->superPoder);
-    } else if (val1->superPoder < val2->superPoder) {
-        printf("Super Poder: Carta 2 (%s) Venceu - %.2f\n", val2->cidade, val2->superPoder);
-    } else {
-        printf("Super Poder: Empate (%.2f)\n", val1->superPoder);
-    }*/
 }
 
 int main() {
@@ -296,17 +278,17 @@ int main() {
 
                 switch (opcao) {
                 case 1:
-                    printf("\nEssas são as Cartas:");
+                    printf("\nEssas são as Cartas:\n");
 
-                    printf("\n\nCarta 1\n");
+                    printf("\nCarta 1\n");
                     saida(&cartaUm);
 
-                    printf("\n\nCarta 2\n");
+                    printf("\nCarta 2\n");
                     saida(&cartaDois);
                     break;
 
                 case 0:
-                    printf("\nProceguindo...");
+                    printf("\nProceguindo...\n");
                     break;
                 
                 default:
